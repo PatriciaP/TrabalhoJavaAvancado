@@ -570,7 +570,7 @@ public class CadastrarVendedor extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void inicializaCodigo() {
-        edtCodigo.setText(VendedorService.retornarQtdPessoas().substring(1, 2));
+        edtCodigo.setText(VendedorService.retornarQtdPessoas().replace("[", "").replace("]", ""));
     }
 
     private void limpaCampos() {

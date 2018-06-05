@@ -42,6 +42,15 @@ public class Cliente extends Pessoa{
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
+
+    @Override
+    public String toString() {
+        return nome +"  CPF: "+cpf;
+    }
+    
+    
+    
+    
     
     
     

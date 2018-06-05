@@ -35,8 +35,8 @@ public class Pessoa implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idPessoa;
-    private String cpf;
-    private String nome;
+    String cpf;
+    String nome;
     @Temporal(TemporalType.DATE)
     private Date dataNascimento;
     private String telefone;

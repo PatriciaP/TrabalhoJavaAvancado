@@ -63,11 +63,6 @@ public class CadastrarProduto extends javax.swing.JDialog {
 
         edtCod.setBackground(new java.awt.Color(236, 236, 236));
         edtCod.setFont(new java.awt.Font("Century Gothic", 0, 13)); // NOI18N
-        edtCod.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edtCodActionPerformed(evt);
-            }
-        });
         edtCod.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 edtCodKeyReleased(evt);
@@ -248,17 +243,6 @@ public class CadastrarProduto extends javax.swing.JDialog {
         // TODO add your handling code here:
         limpaCampos();
     }//GEN-LAST:event_btnCancelarActionPerformed
-
-    private void edtCodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtCodActionPerformed
-        // TODO add your handling code here:
-        if(ProdutoService.buscarPorCodigo(edtCod.getText())!=null){
-            codExistente.setVisible(true);
-            btnSalvar.setEnabled(false);
-        }else{
-            codExistente.setVisible(false);
-            btnSalvar.setEnabled(true);
-        }
-    }//GEN-LAST:event_edtCodActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.Cliente;
+import model.Pessoa;
 import util.NegocioException;
 import util.Validacoes;
 
@@ -59,9 +60,15 @@ public class ClienteService implements Serializable {
 
     }
 
-    public List<Cliente> buscarTodos() {
+    public static List<Cliente> buscarTodos() {
         return clienteDAO.findAll();
     }
+    
+    public static List<Cliente> returnaCPF() {
+    return clienteDAO.returnCPF();
+    }
+    
+
 
     public boolean remover(Cliente v) {
         return clienteDAO.remover(v.getIdPessoa());

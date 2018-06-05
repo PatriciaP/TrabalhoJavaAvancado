@@ -11,15 +11,24 @@ package model;
  */
 public enum Categoria {
     
-    VIP("VIP"), PREMIUM("Premium"), BASICO("Básico");
+    VIP("VIP",0.1), PREMIUM("Premium",0.2), BASICO("Básico",0.0);
     
-    private String descricao;
+    private final String descricao;
+    private final Double desconto;
     
-    Categoria(String descricao){
+    Categoria(String descricao, Double desconto){
            this.descricao = descricao;
+           this.desconto = desconto;
     }
     
     public String getDescricao(){
        return descricao;
     }
+
+
+    public Double getDesconto() {
+        return desconto;
+    }
+    
+    
 }

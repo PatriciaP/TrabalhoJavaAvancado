@@ -7,8 +7,10 @@ package model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -18,6 +20,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -38,14 +41,11 @@ public class Venda implements Serializable {
     private Double desconto;
     private Double valorTotal;
     
-    //Eager : ao carregar os dados de um carro, todos os produtos sao recuperados
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "venda_produto",
-            joinColumns = @JoinColumn(name = "idVenda"),
-            inverseJoinColumns = @JoinColumn(name = "idProduto")
-              )
-    private List<Produto> produtos;
+    @OneToMany(mappedBy = "venda",
+               cascade = CascadeType.ALL,
+               orphanRemoval = true)
+    private List<VendaProduto> produtos 
+                      = new LinkedList<VendaProduto>();
     
     @ManyToOne
     private Vendedor vendedor;
@@ -67,13 +67,15 @@ public class Venda implements Serializable {
         this.valorTotal = valorTotal;
     }
 
-    public List<Produto> getProdutos() {
+    public List<VendaProduto> getProdutos() {
         return produtos;
     }
 
-    public void setProdutos(List<Produto> produtos) {
+    public void setProdutos(List<VendaProduto> produtos) {
         this.produtos = produtos;
     }
+
+  
 
     public Vendedor getVendedor() {
         return vendedor;

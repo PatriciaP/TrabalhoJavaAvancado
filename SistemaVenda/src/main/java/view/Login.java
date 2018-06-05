@@ -18,6 +18,7 @@ import view.vendedor.CadastrarVendedor;
  * @author Patricia Pieroni
  */
 public class Login extends javax.swing.JDialog {
+    
 
     public EntityManager em = FabricaEntity.getEntityManager();
     public static Vendedor usuario;
@@ -30,6 +31,7 @@ public class Login extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.parent = parent;
+        
     }
 
     /**

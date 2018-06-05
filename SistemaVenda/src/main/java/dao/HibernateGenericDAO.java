@@ -39,15 +39,15 @@ public class HibernateGenericDAO<T, ID extends Serializable> implements GenericD
     @Override
     public boolean remover(ID id) {
         T aux = em.find(classEntity, id);
-        
-        if (aux != null){
+
+        if (aux != null) {
             em.getTransaction().begin();
             em.remove(aux);
             em.getTransaction().commit();
-            return true;            
-        }
-        else
+            return true;
+        } else {
             return false;
+        }
     }
 
     @Override
@@ -56,10 +56,8 @@ public class HibernateGenericDAO<T, ID extends Serializable> implements GenericD
     }
 
     public List<T> findAll() {
-        CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<T> query = builder.createQuery(classEntity);
-        query.from(classEntity);
-        return em.createQuery(query).getResultList();
+        String qry = "from " + classEntity.getName() + " e";
+        return em.createQuery(qry).getResultList();
     }
 
     public EntityManager getEntityManager() {

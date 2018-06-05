@@ -22,6 +22,7 @@ public class Clientes extends javax.swing.JDialog {
     public Clientes(java.awt.Dialog parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setIcon();
         atualizaDados();
     }
 
@@ -145,17 +146,17 @@ public class Clientes extends javax.swing.JDialog {
 
         CadastrarCliente dialog = new CadastrarCliente(this, true);
         dialog.setVisible(true);
+        atualizaDados();
     }//GEN-LAST:event_cadastrar_pacienteActionPerformed
 
     private void editar_pacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editar_pacienteActionPerformed
 
-          if (tableClientes.getSelectedRow() == -1) {
+        if (tableClientes.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this,
                     "Por favor, selecione um registro", "Editar Registro", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-     
         model.Cliente c = clientes.get(tableClientes.getSelectedRow());
         EditarCliente dialog = new EditarCliente(this, true, cService, c);
         dialog.setVisible(true);
@@ -166,7 +167,7 @@ public class Clientes extends javax.swing.JDialog {
     private void deletar_pacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletar_pacienteActionPerformed
         if (tableClientes.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this,
-                    "Por favor, selecione um registro","Excluir Registro", JOptionPane.ERROR_MESSAGE);
+                    "Por favor, selecione um registro", "Excluir Registro", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -253,6 +254,10 @@ public class Clientes extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane4;
     public static javax.swing.JTable tableClientes;
     // End of variables declaration//GEN-END:variables
+
+    private void setIcon() {
+        //  this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/logo.png")));
+    }
 
     private void atualizaDados() {
         //1-buscando os dados do BD

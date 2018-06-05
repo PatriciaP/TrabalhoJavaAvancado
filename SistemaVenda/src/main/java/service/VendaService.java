@@ -8,6 +8,7 @@ package service;
 import dao.VendaDAO;
 import java.util.List;
 import model.Venda;
+import static service.ClienteService.clienteDAO;
 import util.NegocioException;
 
 /**
@@ -16,24 +17,27 @@ import util.NegocioException;
  */
 public class VendaService {
 
-    VendaDAO vendaDAO = new VendaDAO();
+    static VendaDAO vendaDAO = new VendaDAO();
 
-    public void salvar(Venda v) throws NegocioException {
+    public static void salvar(Venda v) throws NegocioException {
 
         vendaDAO.salvar(v);
 
     }
 
-    public void remover(Venda v) {
-        vendaDAO.remover(v.getIdVenda());
+    public static boolean remover(Venda v) {
+        return vendaDAO.remover(v.getIdVenda());
     }
 
-    public Venda buscarPorCodigo(Integer codigo) {
+    public static Venda buscarPorCodigo(Integer codigo) {
         return vendaDAO.findID(codigo);
     }
 
-    public List<Venda> buscarTodos() {
+    public static  List<Venda> buscarTodos() {
         return vendaDAO.findAll();
     }
 
+    public static String retornarCod() {
+        return vendaDAO.retornarCod();
+    }
 }

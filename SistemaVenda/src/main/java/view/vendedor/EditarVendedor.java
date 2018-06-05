@@ -35,7 +35,7 @@ public class EditarVendedor extends javax.swing.JDialog {
         initComponents();
         this.vService = vendedorService;
         this.vendedor = v;
-        cpfExistente.setVisible(true);
+        cpfExistente.setVisible(false);
 
      
         preencherDados();

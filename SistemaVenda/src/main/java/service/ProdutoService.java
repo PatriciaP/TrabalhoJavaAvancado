@@ -43,7 +43,15 @@ public class ProdutoService implements Serializable {
 
     }
 
-    public boolean remover(Produto p) {
+    public static boolean editar(Produto p) throws NegocioException {
+
+        produtoDAO.salvar(p);
+       
+        return true;
+
+    }
+
+    public static boolean remover(Produto p) {
         return produtoDAO.remover(p.getIdProduto());
     }
 

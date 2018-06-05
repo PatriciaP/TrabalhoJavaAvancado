@@ -502,7 +502,7 @@ public class CadastrarCliente extends javax.swing.JDialog {
     }
 
     private void inicializaLogin() {
-        edtCodigo.setText(ClienteService.retornarQtdPessoas().substring(1, 2));
+        edtCodigo.setText(ClienteService.retornarQtdPessoas().replace("[", "").replace("]", ""));
 
     }
 

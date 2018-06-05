@@ -56,6 +56,12 @@ public class Vendedor extends Pessoa {
         this.senha = senha;
     }
 
+    @Override
+    public String toString() {
+        return nome +"  CPF: "+cpf;
+    }
+    
+
     
   
 

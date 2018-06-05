@@ -15,15 +15,15 @@ import service.ProdutoService;
  * @author Patricia Pieroni
  */
 public class Produtos extends javax.swing.JDialog {
-    
-     private final ProdutoService pService = new ProdutoService();
+
+    private final ProdutoService pService = new ProdutoService();
     private List<Produto> produtos;
     private TableModelProduto aTableModelProduto;
 
     /**
      * Creates new form NewJDialog
      */
-    public Produtos(javax.swing.JDialog  parent, boolean modal) {
+    public Produtos(javax.swing.JDialog parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setIcon();
@@ -147,20 +147,19 @@ public class Produtos extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cadastrar_pacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrar_pacienteActionPerformed
-       CadastrarProduto dialog = new CadastrarProduto(this, true);
-       dialog.setVisible(true);
-       atualizaDados();
+        CadastrarProduto dialog = new CadastrarProduto(this, true);
+        dialog.setVisible(true);
+        atualizaDados();
     }//GEN-LAST:event_cadastrar_pacienteActionPerformed
 
     private void editar_pacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editar_pacienteActionPerformed
-         if (tableProdutos.getSelectedRow() == -1) {
-             JOptionPane.showMessageDialog(this,
+        if (tableProdutos.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this,
                     "Por favor, selecione um registro", "Editar Registro", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-      
-        Produto p= produtos.get(tableProdutos.getSelectedRow());
+        Produto p = produtos.get(tableProdutos.getSelectedRow());
         EditarProduto dialog = new EditarProduto(this, true, pService, p);
         dialog.setVisible(true);
         atualizaDados();
@@ -170,7 +169,7 @@ public class Produtos extends javax.swing.JDialog {
 
         if (tableProdutos.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this,
-                    "Por favor, selecione um registro","Excluir Registro", JOptionPane.ERROR_MESSAGE);
+                    "Por favor, selecione um registro", "Excluir Registro", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -259,10 +258,15 @@ public class Produtos extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void setIcon() {
-      //  this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/logo.png")));
-    }   
+        //  this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/logo.png")));
+    }
 
     private void atualizaDados() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //1-buscando os dados do BD
+        produtos = pService.buscarTodos();
+        //2-configurando o modelo com os dados do bd
+        aTableModelProduto = new TableModelProduto(produtos);
+        //3-configurando o Jtable com o modelo criado
+        tableProdutos.setModel(aTableModelProduto);
     }
 }
