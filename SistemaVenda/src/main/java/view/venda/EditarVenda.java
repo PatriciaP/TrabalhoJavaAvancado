@@ -5,28 +5,58 @@
  */
 package view.venda;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import model.Cliente;
+import model.Produto;
 import model.Venda;
+import model.VendaProduto;
+import model.Vendedor;
+import service.ClienteService;
+import service.ProdutoService;
 import service.VendaService;
+import service.VendedorService;
+import util.NegocioException;
+import view.cliente.CadastrarCliente;
+import static view.venda.CadastrarVenda.tableItem;
 
 /**
  *
  * @author Patricia Pieroni
  */
 public class EditarVenda extends javax.swing.JDialog {
-    
+
     private final VendaService vendaService;
     private final Venda venda;
+    private final List<VendaProduto> items = new LinkedList<>();
+    Double valor = 0.0, valorDesconto = 0.0, valorTotal = 0.0;
+    private static Cliente c;
+    private static Produto p;
+    private static VendaProduto vp = new VendaProduto();
+    private static final List<Produto> prod = ProdutoService.buscarTodos();
 
     /**
      * Creates new form EditarVenda
      */
-    public EditarVenda(javax.swing.JDialog  parent, boolean modal, VendaService vendaService, Venda v) {
+    public EditarVenda(javax.swing.JDialog parent, boolean modal, VendaService vendaService,
+            Venda v) {
         super(parent, modal);
         initComponents();
         this.vendaService = vendaService;
         this.venda = v;
+        carregaCombos();
         preencherDados();
+        preencherDadosCliente();
+        preencheDadosProduto();
+
     }
 
     /**
@@ -71,7 +101,7 @@ public class EditarVenda extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         cbxVendedor = new javax.swing.JComboBox<>();
-        edtData = new javax.swing.JLabel();
+        edtData = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -317,7 +347,7 @@ public class EditarVenda extends javax.swing.JDialog {
         txtValorTotal.setText("Valor Total:");
 
         btnSalvar.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        btnSalvar.setText("SALVAR");
+        btnSalvar.setText("EDITAR");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
@@ -332,8 +362,11 @@ public class EditarVenda extends javax.swing.JDialog {
 
         cbxVendedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
 
-        edtData.setFont(new java.awt.Font("Century Gothic", 1, 13)); // NOI18N
-        edtData.setText("Data Venda:");
+        try {
+            edtData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -363,7 +396,7 @@ public class EditarVenda extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(edtData))
+                        .addComponent(edtData, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(txtValorTotal)
@@ -383,8 +416,8 @@ public class EditarVenda extends javax.swing.JDialog {
                     .addComponent(jLabel6)
                     .addComponent(jLabel3)
                     .addComponent(cbxVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(edtData))
-                .addGap(11, 11, 11)
+                    .addComponent(edtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -409,11 +442,17 @@ public class EditarVenda extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 999, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 999, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 815, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 870, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -422,14 +461,7 @@ public class EditarVenda extends javax.swing.JDialog {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-        int result = JOptionPane.showConfirmDialog(this,
-            "Confirma a operação?", "Sair Cadastro",
-            JOptionPane.OK_CANCEL_OPTION,
-            JOptionPane.QUESTION_MESSAGE);
-
-        if (result == JOptionPane.OK_OPTION) {
-            dispose();
-        }
+        sair();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void cbxClienteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxClienteItemStateChanged
@@ -455,16 +487,16 @@ public class EditarVenda extends javax.swing.JDialog {
             return;
         }
         int resp = JOptionPane.showConfirmDialog(this,
-            "Confirma a exclusão?", "Excluir Produto",
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE);
+                "Confirma a exclusão?", "Excluir Produto",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
 
         if (resp != JOptionPane.YES_OPTION) {
             return;
         }
 
-        Produto p = (Produto) cbxProduto.getSelectedItem();
-        p.setQtdEstoque(p.getQtdEstoque() + aux.getQtde());
+        Produto p = (Produto) tableItem.getValueAt(tableItem.getSelectedRow(), 0);
+        p.setQtdEstoque(p.getQtdEstoque() + vp.getQtde());
         try {
             ProdutoService.editar(p);
         } catch (NegocioException ex) {
@@ -482,23 +514,23 @@ public class EditarVenda extends javax.swing.JDialog {
         // TODO add your handling code here:
         if (cbxQuantidade.getSelectedItem() == null) {
             JOptionPane.showMessageDialog(this,
-                "Informe a quantidade do produto", "Error", JOptionPane.ERROR_MESSAGE);
+                    "Informe a quantidade do produto", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         int result = JOptionPane.showConfirmDialog(this,
-            "Confirma a operação?", "Adicionar produto",
-            JOptionPane.OK_CANCEL_OPTION,
-            JOptionPane.QUESTION_MESSAGE);
+                "Confirma a operação?", "Adicionar produto",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
 
         if (result == JOptionPane.OK_OPTION) {
 
             if (p.getQtdEstoque() - ((Integer) cbxQuantidade.getSelectedItem()) >= p.getEstoqueMin()) {
-                aux.setProduto((Produto) cbxProduto.getSelectedItem());
-                aux.setQtde((Integer) cbxQuantidade.getSelectedItem());
-                aux.setValor(TOP_ALIGNMENT);
-                System.out.println(aux);
-                items.add(aux);
+                vp.setProduto((Produto) cbxProduto.getSelectedItem());
+                vp.setQtde((Integer) cbxQuantidade.getSelectedItem());
+                vp.setValor(TOP_ALIGNMENT);
+                System.out.println(vp);
+                items.add(vp);
                 Produto p = (Produto) cbxProduto.getSelectedItem();
                 p.setQtdEstoque(p.getQtdEstoque() - ((Integer) cbxQuantidade.getSelectedItem()));
                 try {
@@ -508,7 +540,7 @@ public class EditarVenda extends javax.swing.JDialog {
                 }
             } else {
                 JOptionPane.showMessageDialog(this,
-                    "Estoque mínimo atingido.", "Erro de estoque", JOptionPane.ERROR_MESSAGE);
+                        "Estoque mínimo atingido.", "Erro de estoque", JOptionPane.ERROR_MESSAGE);
             }
 
         }
@@ -522,49 +554,51 @@ public class EditarVenda extends javax.swing.JDialog {
         // TODO add your handling code here:
         if (items == null) {
             JOptionPane.showMessageDialog(this,
-                "A venda deve conter itens", "Error", JOptionPane.ERROR_MESSAGE);
+                    "A venda deve conter itens", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         int result = JOptionPane.showConfirmDialog(this,
-            "Confirma a operação?", "Finalizar Venda",
-            JOptionPane.OK_CANCEL_OPTION,
-            JOptionPane.QUESTION_MESSAGE);
+                "Confirma a operação?", "Finalizar Venda",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
 
         if (result == JOptionPane.CANCEL_OPTION) {
             return;
         }
 
-        Venda aux = new Venda();
-        aux.setDataVenda((Date) new Date());
-        aux.setValorTotal(valorTotal);
-        aux.setValor(valor);
-        aux.setDesconto(valorDesconto);
-        aux.setVendedor((Vendedor) cbxVendedor.getSelectedItem());
-        aux.setCliente((Cliente) cbxCliente.getSelectedItem());
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        Date data = new Date();
+        try {
+            data = formato.parse(edtData.getText());
+        } catch (ParseException ex) {
+            Logger.getLogger(CadastrarCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        venda.setDataVenda(data);
+        venda.setValorTotal(valorTotal);
+        venda.setValor(valor);
+        venda.setDesconto(valorDesconto);
+        venda.setVendedor((Vendedor) cbxVendedor.getSelectedItem());
+        venda.setCliente((Cliente) cbxCliente.getSelectedItem());
 
         for (VendaProduto iten : items) { //tenho que fazer essa ligaução
-            iten.setVenda(aux);           //bidirecional, senão o campo
+            iten.setVenda(venda);           //bidirecional, senão o campo
         }                                 //codVenda terá o valor NULL.
 
-        aux.setProdutos(items);
+        venda.setProdutos(items);
 
         try {
-            VendaService.salvar(aux);
+            VendaService.salvar(venda);
             JOptionPane.showMessageDialog(this,
-                "Venda inserida com sucesso!", "Venda Cadastrada", JOptionPane.INFORMATION_MESSAGE);
+                    "Venda editada com sucesso!", "Editar Venda", JOptionPane.INFORMATION_MESSAGE);
 
         } catch (NegocioException ex) {
-            Logger.getLogger(CadastrarVenda.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EditarVenda.class.getName()).log(Level.SEVERE, null, ex);
         }
         dispose();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
-
-
-    private void preencherDados() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionar;
@@ -577,7 +611,7 @@ public class EditarVenda extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cbxVendedor;
     private javax.swing.JLabel cod;
     private javax.swing.JTextField edtCodigo;
-    private javax.swing.JLabel edtData;
+    private javax.swing.JFormattedTextField edtData;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -602,4 +636,137 @@ public class EditarVenda extends javax.swing.JDialog {
     private javax.swing.JLabel txtValorTotal;
     private javax.swing.JLabel txtValorU;
     // End of variables declaration//GEN-END:variables
+
+    private void preencherDados() {
+        valor = venda.getValor();
+        valorDesconto = venda.getCliente().getCategoria().getDesconto();
+        valorTotal = venda.getValorTotal();
+        edtCodigo.setText(String.valueOf(venda.getIdVenda()));
+        cbxVendedor.setSelectedItem(venda.getVendedor());
+        SimpleDateFormat formatData = new SimpleDateFormat("dd/MM/yyyy");
+        edtData.setText(formatData.format(venda.getDataVenda()));
+        cbxCliente.setSelectedItem(venda.getCliente());
+        items.addAll(venda.getProdutos());
+        txtValor.setText("Valor: R$" + valor);
+        txtDesconto.setText("Desconto " + venda.getCliente().getCategoria()
+                + " (" + (valorDesconto * 100) + "%)"
+                + " R$" + venda.getDesconto());
+        txtValorTotal.setText("Valor Total R$" + valorTotal);
+
+    }
+
+    private void carregaCombos() {
+
+        Vector<Vendedor> vendedores = new Vector<>(VendedorService.buscarTodos());
+        DefaultComboBoxModel dcmVendedor = new DefaultComboBoxModel(vendedores);
+        cbxVendedor.setModel(dcmVendedor);
+        Vector<Cliente> clientes = new Vector<>(ClienteService.buscarTodos());
+        DefaultComboBoxModel dcmCliente = new DefaultComboBoxModel(clientes);
+        cbxCliente.setModel(dcmCliente);
+        Vector<Produto> produtos = new Vector<>(ProdutoService.buscarTodos());
+        DefaultComboBoxModel dcmProduto = new DefaultComboBoxModel(produtos);
+        cbxProduto.setModel(dcmProduto);
+
+    }
+
+    private void preencherDadosCliente() {
+        if (cbxCliente.getSelectedItem() != null) {
+            c = (Cliente) cbxCliente.getSelectedItem();
+            SimpleDateFormat formatData = new SimpleDateFormat("dd/MM/yyyy");
+            txtCategoria.setText("Categoria: " + c.getCategoria().toString());
+            txtCPF.setText("CPF: " + c.getCpf());
+            txtNome.setText("Nome: " + c.getNome());
+            txtEndereco.setText("Endereço: " + c.getEnderecos());
+            txtDataNascimento.setText("Data Nascimento: " + formatData.format(c.getDataNascimento()));
+            txtTelefone.setText("Telefone: " + c.getTelefone());
+
+        }
+    }
+
+    private void preencheDadosProduto() {
+        Vector<Integer> qtd = new Vector<>();
+        if (cbxProduto.getSelectedItem() != null) {
+            p = (Produto) cbxProduto.getSelectedItem();
+            for (int i = 0; i < p.getQtdEstoque(); i++) {
+                qtd.add(i + 1);
+
+            }
+            DefaultComboBoxModel dcmQtd = new DefaultComboBoxModel(qtd);
+            cbxQuantidade.setModel(dcmQtd);
+            txtCodProd.setText("Código: " + p.getIdProduto());
+            txtNomeProd.setText("Nome: " + p.getNome());
+            txtQtdEstoque.setText("Qtd. Estoque: " + p.getQtdEstoque());
+            txtValorU.setText("Valor: " + p.getValor());
+        }
+        adicionarTabela();
+
+    }
+
+    private void valorVenda() {
+        valor = 0.0;
+        valorDesconto = 0.0;
+        valorTotal = 0.0;
+
+        items.forEach((vp) -> {
+            valor += vp.getTotal();
+        });
+
+        valorDesconto = valor * valorDesconto;
+
+        valorTotal = valor - valorDesconto;
+
+        txtValor.setText("Valor: R$" + valor.toString());
+        txtDesconto.setText("Desconto " + c.getCategoria() + " (" + (c.getCategoria().getDesconto() * 100) + "%)"
+                + " R$" + valorDesconto.toString());
+        txtValorTotal.setText("Valor Total R$" + valorTotal.toString());
+
+    }
+
+    private void valorDesconto() {
+
+        items.forEach((vp) -> {
+            valor += vp.getTotal();
+        });
+        txtValor.setText("Valor: R$" + valor.toString());
+    }
+
+    private void adicionarTabela() {
+        tableItem.setModel(new TableModelVendaProduto(items));
+    }
+
+    private int sair() {
+
+        int result = JOptionPane.showConfirmDialog(this,
+                "Confirma a operação?", "Sair Edição",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+
+        if (result == JOptionPane.OK_OPTION) {
+            setarQtdProd();
+            dispose();
+            return 0;
+        } else {
+            return 1;
+        }
+
+    }
+
+    private void setarQtdProd() {
+        List<Produto> p = ProdutoService.buscarTodos();
+        System.out.println(EditarVenda.prod);
+        System.out.println(p);
+        p.forEach((prod) -> {
+            EditarVenda.prod.stream().filter((prodFinal) -> (prod.getQtdEstoque() != prodFinal.getQtdEstoque())).map((prodFinal) -> {
+                prod.setQtdEstoque(prodFinal.getQtdEstoque());
+                return prodFinal;
+            }).forEachOrdered((_item) -> {
+                try {
+                    ProdutoService.editar(prod);
+                } catch (NegocioException ex) {
+                    Logger.getLogger(Vendas.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+        });
+    }
+
 }

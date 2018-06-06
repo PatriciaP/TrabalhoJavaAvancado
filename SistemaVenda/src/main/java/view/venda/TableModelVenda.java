@@ -5,6 +5,7 @@
  */
 package view.venda;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -52,7 +53,7 @@ public class TableModelVenda extends AbstractTableModel {
             case 3:
                 return dados.get(rowIndex).getCliente().getNome();
             case 4:
-                return dados.get(rowIndex).getDataVenda();
+                return formatData(dados.get(rowIndex).getDataVenda());
 
             case 5:
                 return dados.get(rowIndex).getValor();
@@ -114,6 +115,11 @@ public class TableModelVenda extends AbstractTableModel {
     @Override
     public String getColumnName(int column) {
         return colunas[column];
+    }
+
+    private String formatData(Date dt) {
+        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+        return formatador.format(dt);
     }
 
 }

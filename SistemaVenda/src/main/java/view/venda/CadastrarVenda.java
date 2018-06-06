@@ -24,6 +24,7 @@ import service.ProdutoService;
 import service.VendaService;
 import service.VendedorService;
 import util.NegocioException;
+import static view.venda.EditarVenda.tableItem;
 
 /**
  *
@@ -34,7 +35,7 @@ public class CadastrarVenda extends javax.swing.JDialog {
     private static Venda v;
     private static Cliente c;
     private static Produto p;
-    private static final VendaProduto aux = new VendaProduto();
+    private static final VendaProduto vp = new VendaProduto();
     ClienteService cService = new ClienteService();
     ProdutoService produtoService = new ProdutoService();
     private final List<VendaProduto> items = new LinkedList<>();
@@ -97,6 +98,11 @@ public class CadastrarVenda extends javax.swing.JDialog {
         edtData = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados da Venda", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century Gothic", 1, 14))); // NOI18N
@@ -458,8 +464,8 @@ public class CadastrarVenda extends javax.swing.JDialog {
             return;
         }
 
-        Produto p = (Produto) cbxProduto.getSelectedItem();
-        p.setQtdEstoque(p.getQtdEstoque() + aux.getQtde());
+        p = (Produto) tableItem.getValueAt(tableItem.getSelectedRow(), 0);
+        p.setQtdEstoque(p.getQtdEstoque() + vp.getQtde());
         try {
             ProdutoService.editar(p);
         } catch (NegocioException ex) {
@@ -524,9 +530,9 @@ public class CadastrarVenda extends javax.swing.JDialog {
 
         try {
             VendaService.salvar(aux);
-              JOptionPane.showMessageDialog(this,
+            JOptionPane.showMessageDialog(this,
                     "Venda inserida com sucesso!", "Venda Cadastrada", JOptionPane.INFORMATION_MESSAGE);
-            
+
         } catch (NegocioException ex) {
             Logger.getLogger(CadastrarVenda.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -546,14 +552,25 @@ public class CadastrarVenda extends javax.swing.JDialog {
                 JOptionPane.OK_CANCEL_OPTION,
                 JOptionPane.QUESTION_MESSAGE);
 
+        p = (Produto) cbxProduto.getSelectedItem();
+
         if (result == JOptionPane.OK_OPTION) {
 
             if (p.getQtdEstoque() - ((Integer) cbxQuantidade.getSelectedItem()) >= p.getEstoqueMin()) {
-                aux.setProduto((Produto) cbxProduto.getSelectedItem());
-                aux.setQtde((Integer) cbxQuantidade.getSelectedItem());
-                aux.setValor(TOP_ALIGNMENT);
-                System.out.println(aux);
-                items.add(aux);
+
+                /*
+                for (int i = 0; i < items.size(); i++) {
+                    if (items.get(i).getProduto().equals(p)) {
+                        items.get(i).setQtde(items.get(i).getQtde() + (Integer) cbxQuantidade.getSelectedItem());
+                        System.out.println(items);
+                        adicionarTabela();
+                    }
+                }*/
+                vp.setProduto((Produto) cbxProduto.getSelectedItem());
+                vp.setQtde((Integer) cbxQuantidade.getSelectedItem());
+                vp.setValor(TOP_ALIGNMENT);
+                System.out.println(vp);
+                items.add(vp);
                 Produto p = (Produto) cbxProduto.getSelectedItem();
                 p.setQtdEstoque(p.getQtdEstoque() - ((Integer) cbxQuantidade.getSelectedItem()));
                 try {
@@ -561,30 +578,30 @@ public class CadastrarVenda extends javax.swing.JDialog {
                 } catch (NegocioException ex) {
                     Logger.getLogger(CadastrarVenda.class.getName()).log(Level.SEVERE, null, ex);
                 }
+
             } else {
                 JOptionPane.showMessageDialog(this,
                         "Estoque mínimo atingido.", "Erro de estoque", JOptionPane.ERROR_MESSAGE);
             }
 
+            valorVenda();
+            preencheDadosProduto();
+            adicionarTabela();
+
         }
 
-        valorVenda();
-        preencheDadosProduto();
-        adicionarTabela();
 
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-        int result = JOptionPane.showConfirmDialog(this,
-                "Confirma a operação?", "Sair Cadastro",
-                JOptionPane.OK_CANCEL_OPTION,
-                JOptionPane.QUESTION_MESSAGE);
-
-        if (result == JOptionPane.OK_OPTION) {
-            dispose();
-        }
+        sair();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        sair();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -752,5 +769,49 @@ public class CadastrarVenda extends javax.swing.JDialog {
 
     private void adicionarTabela() {
         tableItem.setModel(new TableModelVendaProduto(items));
+
+    }
+
+    private int sair() {
+
+        int result = JOptionPane.showConfirmDialog(this,
+                "Confirma a operação?", "Sair Cadastro",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+
+        if (result == JOptionPane.OK_OPTION) {
+            dispose();
+            setarQtdProd();
+            return 0;
+        } else {
+            return 1;
+        }
+
+    }
+
+    private void setarQtdProd() {
+        List<Produto> prod = ProdutoService.buscarTodos();
+        System.out.println(prod);
+        System.out.println(items);
+        for (VendaProduto prodVenda : items) {
+            for (Produto produto : prod) {
+                if (prodVenda.getProduto().getIdProduto().equals(produto.getIdProduto())) {
+                    if (editQtdProduto(produto, prodVenda));
+                }
+
+            }
+
+        }
+    }
+    
+     private boolean editQtdProduto(Produto produto, VendaProduto prodVenda) {
+        produto.setQtdEstoque(produto.getQtdEstoque() + prodVenda.getQtde());
+        try {
+            ProdutoService.editar(produto);
+        } catch (NegocioException ex) {
+            Logger.getLogger(Vendas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return true;
     }
 }

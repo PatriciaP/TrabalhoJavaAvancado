@@ -77,7 +77,7 @@ public class VendedorDAO extends HibernateGenericDAO<Vendedor, Serializable>{
         
            
         return getEntityManager().createQuery("Select count(p)"
-                   + " from Pessoa p").getResultList().toString();
+                   + " from Pessoa p").getResultList().toString()+1;
 
     }
      

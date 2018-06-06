@@ -48,7 +48,7 @@ public class ClienteDAO extends HibernateGenericDAO<Cliente, Serializable> {
     public String retornarCod() {
 
         return getEntityManager().createQuery("Select count(p)"
-                + " from Pessoa p").getResultList().toString();
+                + " from Pessoa p").getResultList().toString()+1;
 
     }
     

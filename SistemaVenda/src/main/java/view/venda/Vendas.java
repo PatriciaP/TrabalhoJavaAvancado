@@ -6,9 +6,16 @@
 package view.venda;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import model.Produto;
 import model.Venda;
+import model.VendaProduto;
+import service.ProdutoService;
 import service.VendaService;
+import util.NegocioException;
+import static view.venda.CadastrarVenda.tableItem;
 
 /**
  *
@@ -50,6 +57,8 @@ public class Vendas extends javax.swing.JDialog {
         tableVenda = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(600, 300));
+        setPreferredSize(new java.awt.Dimension(600, 481));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -182,7 +191,23 @@ public class Vendas extends javax.swing.JDialog {
             return;
         }
 
-        Venda v = vendas.get(tableVenda.getSelectedRow());
+        List<Produto> prod = ProdutoService.buscarTodos();
+
+        Venda v = new Venda();
+
+        System.out.println(prod);
+        v = VendaService.buscarPorCodigo((Integer) tableVenda.getValueAt(tableVenda.getSelectedRow(), 0));
+        System.out.println(v.getProdutos().toString());
+        for (VendaProduto prodVenda : v.getProdutos()) {
+            for (Produto produto : prod) {
+                if (prodVenda.getProduto().getIdProduto().equals(produto.getIdProduto())) {
+                    if (editQtdProduto(produto, prodVenda));
+                }
+
+            }
+
+        }
+
         if (vendaService.remover(v)) {
             JOptionPane.showMessageDialog(this, "Registro excluído", "Excluir Registro", JOptionPane.INFORMATION_MESSAGE);
         } else {
@@ -262,10 +287,21 @@ public class Vendas extends javax.swing.JDialog {
     }
 
     private void atualizaDados() {
-        
+
         vendas = vendaService.buscarTodos();
         tableModelVenda = new TableModelVenda(vendas);
         tableVenda.setModel(tableModelVenda);
-        
+
+    }
+
+    private boolean editQtdProduto(Produto produto, VendaProduto prodVenda) {
+        produto.setQtdEstoque(produto.getQtdEstoque() + prodVenda.getQtde());
+        try {
+            ProdutoService.editar(produto);
+        } catch (NegocioException ex) {
+            Logger.getLogger(Vendas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return true;
     }
 }

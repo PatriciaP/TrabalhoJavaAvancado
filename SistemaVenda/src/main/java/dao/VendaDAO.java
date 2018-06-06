@@ -17,7 +17,7 @@ public class VendaDAO extends HibernateGenericDAO<Venda, Serializable>{
     public String retornarCod() {
 
         return getEntityManager().createQuery("Select count(p)"
-                + " from Venda p").getResultList().toString();
+                + " from Venda p").getResultList().toString()+1;
 
     }
  

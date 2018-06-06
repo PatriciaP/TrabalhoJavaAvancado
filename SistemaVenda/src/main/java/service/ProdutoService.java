@@ -59,7 +59,7 @@ public class ProdutoService implements Serializable {
         return produtoDAO.findID(codigo);
     }
 
-    public List<Produto> buscarTodos() {
+    public static List<Produto> buscarTodos() {
         return produtoDAO.findAll();
     }
 

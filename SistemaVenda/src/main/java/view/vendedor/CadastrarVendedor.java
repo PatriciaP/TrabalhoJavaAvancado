@@ -458,6 +458,7 @@ public class CadastrarVendedor extends javax.swing.JDialog {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
         limpaCampos();
+        sair();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void edtLoginKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edtLoginKeyReleased
@@ -602,5 +603,16 @@ public class CadastrarVendedor extends javax.swing.JDialog {
                 && !edtSenha.getText().isEmpty()
                 && !edtTelefone.getText().isEmpty()
                 && !edtUF.getText().isEmpty());    }
+    
+     private void sair(){
+        int result = JOptionPane.showConfirmDialog(this,
+            "Confirma a operação?", "Sair Cadastro",
+            JOptionPane.OK_CANCEL_OPTION,
+            JOptionPane.QUESTION_MESSAGE);
+
+        if (result == JOptionPane.OK_OPTION) {
+            dispose();
+        }
+    }
 
 }

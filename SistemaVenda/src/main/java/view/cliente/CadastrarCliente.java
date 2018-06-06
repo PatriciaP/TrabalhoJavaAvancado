@@ -403,6 +403,8 @@ public class CadastrarCliente extends javax.swing.JDialog {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
         limpaCampos();
+        sair();
+         
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
@@ -521,5 +523,16 @@ public class CadastrarCliente extends javax.swing.JDialog {
         edtTelefone.setText("");
         edtUF.setText("");
 
+    }
+    
+    private void sair(){
+        int result = JOptionPane.showConfirmDialog(this,
+            "Confirma a operação?", "Sair Cadastro",
+            JOptionPane.OK_CANCEL_OPTION,
+            JOptionPane.QUESTION_MESSAGE);
+
+        if (result == JOptionPane.OK_OPTION) {
+            dispose();
+        }
     }
 }
