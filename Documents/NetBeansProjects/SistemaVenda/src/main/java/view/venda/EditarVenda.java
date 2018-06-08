@@ -483,7 +483,11 @@ public class EditarVenda extends javax.swing.JDialog {
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
 
         if (tableItem.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(this, "Por favor, selecione um registro!");
+            try {
+                throw new NegocioException("Por favor, selecione um registro!", "Excluir produto");
+            } catch (NegocioException ex) {
+                Logger.getLogger(EditarVenda.class.getName()).log(Level.SEVERE, null, ex);
+            }
             return;
         }
         int resp = JOptionPane.showConfirmDialog(this,
@@ -496,7 +500,11 @@ public class EditarVenda extends javax.swing.JDialog {
         }
 
         Produto p = (Produto) tableItem.getValueAt(tableItem.getSelectedRow(), 0);
-        p.setQtdEstoque(p.getQtdEstoque() + vp.getQtde());
+        Integer qtd = (Integer) tableItem.getValueAt(tableItem.getSelectedRow(), 1);
+        System.out.println("produto " + p.toString());
+        System.out.println("produto qtd venda" + qtd);
+        p.setQtdEstoque(p.getQtdEstoque() + qtd);
+
         try {
             ProdutoService.editar(p);
         } catch (NegocioException ex) {
@@ -508,6 +516,7 @@ public class EditarVenda extends javax.swing.JDialog {
         valorVenda();
         preencheDadosProduto();
         adicionarTabela();
+
     }//GEN-LAST:event_btnRemoverActionPerformed
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
@@ -551,52 +560,56 @@ public class EditarVenda extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        // TODO add your handling code here:
-        if (items == null) {
-            JOptionPane.showMessageDialog(this,
-                    "A venda deve conter itens", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+              if (items.isEmpty()) {
+            try {
+                throw new NegocioException("A venda deve conter itens", "Erro Editar Venda");
+            } catch (NegocioException ex) {
+                Logger.getLogger(EditarVenda.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else {
+
+            int result = JOptionPane.showConfirmDialog(this,
+                    "Confirma a operação?", "Finalizar Venda",
+                    JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+
+            if (result == JOptionPane.CANCEL_OPTION) {
+                return;
+            }
+
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+            Date data = new Date();
+            try {
+                data = formato.parse(edtData.getText());
+            } catch (ParseException ex) {
+                Logger.getLogger(CadastrarCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            venda.setDataVenda(data);
+            venda.setValorTotal(valorTotal);
+            venda.setValor(valor);
+            venda.setDesconto(valorDesconto);
+            venda.setVendedor((Vendedor) cbxVendedor.getSelectedItem());
+            venda.setCliente((Cliente) cbxCliente.getSelectedItem());
+
+            for (VendaProduto iten : items) { //tenho que fazer essa ligaução
+                iten.setVenda(venda);           //bidirecional, senão o campo
+            }                                 //codVenda terá o valor NULL.
+
+            venda.setProdutos(items);
+
+            try {
+                VendaService.salvar(venda);
+                JOptionPane.showMessageDialog(this,
+                        "Venda editada com sucesso!", "Editar Venda", JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (NegocioException ex) {
+                Logger.getLogger(EditarVenda.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            dispose();
         }
 
-        int result = JOptionPane.showConfirmDialog(this,
-                "Confirma a operação?", "Finalizar Venda",
-                JOptionPane.OK_CANCEL_OPTION,
-                JOptionPane.QUESTION_MESSAGE);
-
-        if (result == JOptionPane.CANCEL_OPTION) {
-            return;
-        }
-
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        Date data = new Date();
-        try {
-            data = formato.parse(edtData.getText());
-        } catch (ParseException ex) {
-            Logger.getLogger(CadastrarCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        venda.setDataVenda(data);
-        venda.setValorTotal(valorTotal);
-        venda.setValor(valor);
-        venda.setDesconto(valorDesconto);
-        venda.setVendedor((Vendedor) cbxVendedor.getSelectedItem());
-        venda.setCliente((Cliente) cbxCliente.getSelectedItem());
-
-        for (VendaProduto iten : items) { //tenho que fazer essa ligaução
-            iten.setVenda(venda);           //bidirecional, senão o campo
-        }                                 //codVenda terá o valor NULL.
-
-        venda.setProdutos(items);
-
-        try {
-            VendaService.salvar(venda);
-            JOptionPane.showMessageDialog(this,
-                    "Venda editada com sucesso!", "Editar Venda", JOptionPane.INFORMATION_MESSAGE);
-
-        } catch (NegocioException ex) {
-            Logger.getLogger(EditarVenda.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        dispose();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
 
