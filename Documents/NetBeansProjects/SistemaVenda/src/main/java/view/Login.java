@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package view;
+import java.awt.Toolkit;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.swing.JOptionPane;
@@ -31,6 +32,7 @@ public class Login extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.parent = parent;
+        setIcon();
         
     }
 
@@ -45,28 +47,30 @@ public class Login extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         edtLogin = new javax.swing.JTextField();
-        edtSenha = new javax.swing.JTextField();
         btnLogar = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnRegistrar = new javax.swing.JButton();
+        edtSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Login");
         setBackground(new java.awt.Color(204, 204, 204));
         setResizable(false);
         getContentPane().setLayout(new java.awt.CardLayout(1, 1));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setFont(new java.awt.Font("Century Gothic", 0, 13)); // NOI18N
 
         edtLogin.setFont(new java.awt.Font("Century Gothic", 0, 13)); // NOI18N
+        edtLogin.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         edtLogin.setName("edtLogin"); // NOI18N
-
-        edtSenha.setFont(new java.awt.Font("Century Gothic", 0, 13)); // NOI18N
-        edtSenha.setName("edtSenha"); // NOI18N
 
         btnLogar.setBackground(new java.awt.Color(51, 51, 51));
         btnLogar.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnLogar.setForeground(new java.awt.Color(255, 255, 255));
+        btnLogar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-login-arredondado-à-direita-48.png"))); // NOI18N
         btnLogar.setText("LOGAR");
         btnLogar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -76,6 +80,8 @@ public class Login extends javax.swing.JDialog {
 
         btnCancel.setBackground(new java.awt.Color(51, 51, 51));
         btnCancel.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnCancel.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-desligar-48.png"))); // NOI18N
         btnCancel.setText("LOGOUT");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,13 +90,14 @@ public class Login extends javax.swing.JDialog {
         });
 
         jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 13)); // NOI18N
-        jLabel1.setText("Login");
+        jLabel1.setText("LOGIN");
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 13)); // NOI18N
-        jLabel2.setText("Senha");
+        jLabel2.setText("SENHA");
 
         btnRegistrar.setBackground(new java.awt.Color(255, 255, 255));
         btnRegistrar.setFont(new java.awt.Font("Century Gothic", 0, 13)); // NOI18N
+        btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-adicionar-banco-de-dados-28.png"))); // NOI18N
         btnRegistrar.setText("Registrar");
         btnRegistrar.setBorder(null);
         btnRegistrar.setBorderPainted(false);
@@ -100,49 +107,60 @@ public class Login extends javax.swing.JDialog {
             }
         });
 
+        edtSenha.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        edtSenha.setText("jPasswordField1");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addComponent(btnLogar, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(152, 152, 152))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(180, 180, 180)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(95, 95, 95)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(edtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(edtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(177, 177, 177)
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(167, 167, 167)
-                        .addComponent(btnRegistrar)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnLogar, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(180, 180, 180)
+                                .addComponent(jLabel2))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(183, 183, 183)
+                                .addComponent(jLabel1)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(edtLogin)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(edtSenha)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(53, 53, 53)
+                .addGap(42, 42, 42)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(edtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(edtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addComponent(btnRegistrar)
+                .addComponent(edtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(btnRegistrar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLogar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnCancel)
+                    .addComponent(btnLogar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         getContentPane().add(jPanel1, "card2");
@@ -156,13 +174,18 @@ public class Login extends javax.swing.JDialog {
         registrar();
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        // TODO add your handling code here:
+        exit();
+    }//GEN-LAST:event_btnCancelActionPerformed
+
     private void btnLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogarActionPerformed
         // TODO add your handling code here:
 
         if (!edtLogin.getText().isEmpty() && !edtSenha.getText().isEmpty()) {
             if (VendedorService.validarLogin(edtLogin.getText(),edtSenha.getText())) {
                 JOptionPane.showMessageDialog(this, "Verifique os dados do login, usuário não encontrado!",
-                        "Erro Login", JOptionPane.OK_OPTION);
+                    "Erro Login", JOptionPane.OK_OPTION);
                 limpaCampos();
 
             } else {
@@ -171,15 +194,9 @@ public class Login extends javax.swing.JDialog {
             }
         } else {
             JOptionPane.showMessageDialog(this, "Preencha todos os campos!",
-                    "Erro Login", JOptionPane.ERROR_MESSAGE);
+                "Erro Login", JOptionPane.ERROR_MESSAGE);
         }
-
     }//GEN-LAST:event_btnLogarActionPerformed
-
-    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        // TODO add your handling code here:
-        exit();
-    }//GEN-LAST:event_btnCancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -192,7 +209,7 @@ public class Login extends javax.swing.JDialog {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -254,9 +271,15 @@ public class Login extends javax.swing.JDialog {
     private javax.swing.JButton btnLogar;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JTextField edtLogin;
-    private javax.swing.JTextField edtSenha;
+    private javax.swing.JPasswordField edtSenha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
+
+     private void setIcon() {
+
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/icon.png")));
+
+    }
 }

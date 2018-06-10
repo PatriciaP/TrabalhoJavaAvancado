@@ -63,8 +63,6 @@ public class CadastrarVenda extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        cod = new javax.swing.JLabel();
-        edtCodigo = new javax.swing.JTextField();
         btnCancelar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         txtCPF = new javax.swing.JLabel();
@@ -98,6 +96,7 @@ public class CadastrarVenda extends javax.swing.JDialog {
         edtData = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastrar Venda");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -108,15 +107,8 @@ public class CadastrarVenda extends javax.swing.JDialog {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados da Venda", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century Gothic", 1, 14))); // NOI18N
         jPanel1.setPreferredSize(new java.awt.Dimension(500, 300));
 
-        cod.setFont(new java.awt.Font("Century Gothic", 1, 13)); // NOI18N
-        cod.setText("Código:");
-
-        edtCodigo.setEditable(false);
-        edtCodigo.setBackground(new java.awt.Color(204, 204, 204));
-        edtCodigo.setFont(new java.awt.Font("Century Gothic", 0, 13)); // NOI18N
-        edtCodigo.setEnabled(false);
-
         btnCancelar.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-devolver-compra-28.png"))); // NOI18N
         btnCancelar.setText("CANCELAR");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -229,6 +221,7 @@ public class CadastrarVenda extends javax.swing.JDialog {
         jLabel19.setText("Quantidade:");
 
         btnRemover.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-remover-tag-28.png"))); // NOI18N
         btnRemover.setText("Remover");
         btnRemover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -272,6 +265,7 @@ public class CadastrarVenda extends javax.swing.JDialog {
         txtQtdEstoque.setText("Qtd. Estoque:");
 
         btnAdicionar.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-adicionar-etiqueta-28.png"))); // NOI18N
         btnAdicionar.setText("Adicionar");
         btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -310,7 +304,7 @@ public class CadastrarVenda extends javax.swing.JDialog {
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(btnAdicionar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnRemover)))))
                 .addContainerGap())
         );
@@ -336,16 +330,20 @@ public class CadastrarVenda extends javax.swing.JDialog {
                 .addGap(51, 51, 51))
         );
 
-        txtValor.setFont(new java.awt.Font("Century Gothic", 1, 13)); // NOI18N
+        txtValor.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        txtValor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-notas-de-dinheiro-28.png"))); // NOI18N
         txtValor.setText("Valor:");
 
-        txtDesconto.setFont(new java.awt.Font("Century Gothic", 1, 13)); // NOI18N
+        txtDesconto.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        txtDesconto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-desconto-28.png"))); // NOI18N
         txtDesconto.setText("Desconto:");
 
-        txtValorTotal.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        txtValorTotal.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        txtValorTotal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-cesta-de-compras-28.png"))); // NOI18N
         txtValorTotal.setText("Valor Total:");
 
         btnSalvar.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-finalizar-pedido-28.png"))); // NOI18N
         btnSalvar.setText("SALVAR");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -369,23 +367,16 @@ public class CadastrarVenda extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtValor)
-                                    .addComponent(txtDesconto))
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(txtValor)
+                            .addComponent(txtDesconto))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(cod)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(edtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbxVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -394,7 +385,6 @@ public class CadastrarVenda extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(edtData))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(txtValorTotal)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCancelar)
@@ -405,10 +395,8 @@ public class CadastrarVenda extends javax.swing.JDialog {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addGap(11, 11, 11)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cod)
-                    .addComponent(edtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(jLabel3)
                     .addComponent(cbxVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -438,11 +426,11 @@ public class CadastrarVenda extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 999, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1031, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 815, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 828, Short.MAX_VALUE)
         );
 
         pack();
@@ -499,7 +487,7 @@ public class CadastrarVenda extends javax.swing.JDialog {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
-        if (items == null) {
+        if (items.isEmpty()) {
             JOptionPane.showMessageDialog(this,
                     "A venda deve conter itens", "Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -614,7 +602,7 @@ public class CadastrarVenda extends javax.swing.JDialog {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windonws".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -653,8 +641,6 @@ public class CadastrarVenda extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cbxProduto;
     private javax.swing.JComboBox<String> cbxQuantidade;
     private javax.swing.JComboBox<String> cbxVendedor;
-    private javax.swing.JLabel cod;
-    private javax.swing.JTextField edtCodigo;
     private javax.swing.JLabel edtData;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;

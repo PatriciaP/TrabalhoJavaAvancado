@@ -53,12 +53,14 @@ public class Vendedores extends javax.swing.JDialog {
         tableVendedor = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Vendedores");
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
         cadastrar_paciente.setFont(new java.awt.Font("Century Gothic", 1, 13)); // NOI18N
+        cadastrar_paciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-addgrupo-de-usuários-mulher-homem-48.png"))); // NOI18N
         cadastrar_paciente.setText("Cadastrar");
         cadastrar_paciente.setToolTipText("");
         cadastrar_paciente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -71,6 +73,7 @@ public class Vendedores extends javax.swing.JDialog {
         jPanel1.add(cadastrar_paciente);
 
         editar_paciente.setFont(new java.awt.Font("Century Gothic", 1, 13)); // NOI18N
+        editar_paciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-grupo-de-usuário-homem-mulher-48.png"))); // NOI18N
         editar_paciente.setText("Editar");
         editar_paciente.setFocusable(false);
         editar_paciente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -83,6 +86,7 @@ public class Vendedores extends javax.swing.JDialog {
         jPanel1.add(editar_paciente);
 
         deletar_paciente.setFont(new java.awt.Font("Century Gothic", 1, 13)); // NOI18N
+        deletar_paciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-adicionar-grupo-de-usuários-mulher-homem-48.png"))); // NOI18N
         deletar_paciente.setText("Deletar");
         deletar_paciente.setFocusPainted(false);
         deletar_paciente.setFocusable(false);
@@ -216,7 +220,7 @@ public class Vendedores extends javax.swing.JDialog {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windonws".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

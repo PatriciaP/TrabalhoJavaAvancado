@@ -5,9 +5,13 @@
  */
 package view.venda;
 
+import java.awt.Toolkit;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import model.Produto;
 import model.Venda;
@@ -57,6 +61,7 @@ public class Vendas extends javax.swing.JDialog {
         tableVenda = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Vendas");
         setMinimumSize(new java.awt.Dimension(600, 300));
         setPreferredSize(new java.awt.Dimension(600, 481));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
@@ -65,6 +70,7 @@ public class Vendas extends javax.swing.JDialog {
         jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
         cadastrar_paciente.setFont(new java.awt.Font("Century Gothic", 1, 13)); // NOI18N
+        cadastrar_paciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-adicionar-o-carrinho-de-compras-48.png"))); // NOI18N
         cadastrar_paciente.setText("Cadastrar");
         cadastrar_paciente.setToolTipText("");
         cadastrar_paciente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -77,6 +83,7 @@ public class Vendas extends javax.swing.JDialog {
         jPanel1.add(cadastrar_paciente);
 
         editar_paciente.setFont(new java.awt.Font("Century Gothic", 1, 13)); // NOI18N
+        editar_paciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-atto-carrinho-de-compras-48.png"))); // NOI18N
         editar_paciente.setText("Editar");
         editar_paciente.setFocusable(false);
         editar_paciente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -89,9 +96,11 @@ public class Vendas extends javax.swing.JDialog {
         jPanel1.add(editar_paciente);
 
         deletar_paciente.setFont(new java.awt.Font("Century Gothic", 1, 13)); // NOI18N
+        deletar_paciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-esvaziar-o-carrinho-de-compras-48.png"))); // NOI18N
         deletar_paciente.setText("Deletar");
-        deletar_paciente.setFocusPainted(false);
         deletar_paciente.setFocusable(false);
+        deletar_paciente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        deletar_paciente.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         deletar_paciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deletar_pacienteActionPerformed(evt);
@@ -238,7 +247,7 @@ public class Vendas extends javax.swing.JDialog {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -283,7 +292,9 @@ public class Vendas extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void setIcon() {
-        //  this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/logo.png")));
+
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/icon.png")));
+
     }
 
     private void atualizaDados() {

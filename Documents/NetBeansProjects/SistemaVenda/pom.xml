@@ -18,8 +18,8 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
    
-     <dependencies>
-          <dependency>
+    <dependencies>
+        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>5.2.1.Final</version>
@@ -46,6 +46,14 @@
             <version>2.5.2</version>
             <scope>provided</scope>
         </dependency>
+        
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>6.2.0</version>
+        </dependency>
+
          
-     </dependencies>
+    </dependencies>
+     
 </project>

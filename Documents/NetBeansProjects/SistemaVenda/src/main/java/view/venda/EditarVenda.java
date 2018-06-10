@@ -87,23 +87,24 @@ public class EditarVenda extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         cbxQuantidade = new javax.swing.JComboBox<>();
         jLabel19 = new javax.swing.JLabel();
-        btnRemover = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         tableItem = new javax.swing.JTable();
         txtNomeProd = new javax.swing.JLabel();
         txtCodProd = new javax.swing.JLabel();
         txtQtdEstoque = new javax.swing.JLabel();
         btnAdicionar = new javax.swing.JButton();
-        txtValor = new javax.swing.JLabel();
-        txtDesconto = new javax.swing.JLabel();
-        txtValorTotal = new javax.swing.JLabel();
+        btnRemover = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         cbxVendedor = new javax.swing.JComboBox<>();
         edtData = new javax.swing.JFormattedTextField();
+        txtValor = new javax.swing.JLabel();
+        txtDesconto = new javax.swing.JLabel();
+        txtValorTotal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Editar Venda");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados da Venda", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century Gothic", 1, 14))); // NOI18N
@@ -118,6 +119,7 @@ public class EditarVenda extends javax.swing.JDialog {
         edtCodigo.setEnabled(false);
 
         btnCancelar.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-devolver-compra-28.png"))); // NOI18N
         btnCancelar.setText("CANCELAR");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -229,14 +231,6 @@ public class EditarVenda extends javax.swing.JDialog {
         jLabel19.setFont(new java.awt.Font("Century Gothic", 1, 13)); // NOI18N
         jLabel19.setText("Quantidade:");
 
-        btnRemover.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        btnRemover.setText("Remover");
-        btnRemover.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRemoverActionPerformed(evt);
-            }
-        });
-
         tableItem.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -273,10 +267,20 @@ public class EditarVenda extends javax.swing.JDialog {
         txtQtdEstoque.setText("Qtd. Estoque:");
 
         btnAdicionar.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-adicionar-etiqueta-28.png"))); // NOI18N
         btnAdicionar.setText("Adicionar");
         btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAdicionarActionPerformed(evt);
+            }
+        });
+
+        btnRemover.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-remover-tag-28.png"))); // NOI18N
+        btnRemover.setText("Remover");
+        btnRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverActionPerformed(evt);
             }
         });
 
@@ -304,14 +308,15 @@ public class EditarVenda extends javax.swing.JDialog {
                                 .addComponent(txtNomeProd, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(txtValorU, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(57, 57, 57)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(57, 57, 57)
                                 .addComponent(txtQtdEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                                 .addComponent(btnAdicionar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnRemover)))))
                 .addContainerGap())
         );
@@ -324,9 +329,9 @@ public class EditarVenda extends javax.swing.JDialog {
                     .addComponent(cbxProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel19)
                     .addComponent(cbxQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdicionar)
-                    .addComponent(btnRemover))
-                .addGap(28, 28, 28)
+                    .addComponent(btnRemover)
+                    .addComponent(btnAdicionar))
+                .addGap(23, 23, 23)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCodProd)
                     .addComponent(txtNomeProd)
@@ -337,16 +342,8 @@ public class EditarVenda extends javax.swing.JDialog {
                 .addGap(51, 51, 51))
         );
 
-        txtValor.setFont(new java.awt.Font("Century Gothic", 1, 13)); // NOI18N
-        txtValor.setText("Valor:");
-
-        txtDesconto.setFont(new java.awt.Font("Century Gothic", 1, 13)); // NOI18N
-        txtDesconto.setText("Desconto:");
-
-        txtValorTotal.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        txtValorTotal.setText("Valor Total:");
-
         btnSalvar.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-comprar-28.png"))); // NOI18N
         btnSalvar.setText("EDITAR");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -368,6 +365,18 @@ public class EditarVenda extends javax.swing.JDialog {
             ex.printStackTrace();
         }
 
+        txtValor.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        txtValor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-notas-de-dinheiro-28.png"))); // NOI18N
+        txtValor.setText("Valor:");
+
+        txtDesconto.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        txtDesconto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-desconto-28.png"))); // NOI18N
+        txtDesconto.setText("Desconto:");
+
+        txtValorTotal.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        txtValorTotal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-cesta-de-compras-28.png"))); // NOI18N
+        txtValorTotal.setText("Valor Total:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -378,12 +387,7 @@ public class EditarVenda extends javax.swing.JDialog {
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtValor)
-                                    .addComponent(txtDesconto))
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addComponent(cod)
@@ -399,7 +403,10 @@ public class EditarVenda extends javax.swing.JDialog {
                         .addComponent(edtData, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(txtValorTotal)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtValor)
+                            .addComponent(txtDesconto)
+                            .addComponent(txtValorTotal))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCancelar)
                         .addGap(30, 30, 30)
@@ -421,21 +428,18 @@ public class EditarVenda extends javax.swing.JDialog {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(txtValor)
-                .addGap(18, 18, 18)
-                .addComponent(txtDesconto)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(17, 17, 17)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnCancelar)
+                        .addComponent(btnSalvar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtValor)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtDesconto)
                         .addGap(22, 22, 22)
-                        .addComponent(txtValorTotal)
-                        .addGap(81, 81, 81))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnCancelar)
-                            .addComponent(btnSalvar))
-                        .addGap(65, 65, 65))))
+                        .addComponent(txtValorTotal)))
+                .addGap(65, 65, 65))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -480,87 +484,8 @@ public class EditarVenda extends javax.swing.JDialog {
         preencheDadosProduto();
     }//GEN-LAST:event_cbxProdutoItemStateChanged
 
-    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
-
-        if (tableItem.getSelectedRow() == -1) {
-            try {
-                throw new NegocioException("Por favor, selecione um registro!", "Excluir produto");
-            } catch (NegocioException ex) {
-                Logger.getLogger(EditarVenda.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            return;
-        }
-        int resp = JOptionPane.showConfirmDialog(this,
-                "Confirma a exclusão?", "Excluir Produto",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE);
-
-        if (resp != JOptionPane.YES_OPTION) {
-            return;
-        }
-
-        Produto p = (Produto) tableItem.getValueAt(tableItem.getSelectedRow(), 0);
-        Integer qtd = (Integer) tableItem.getValueAt(tableItem.getSelectedRow(), 1);
-        System.out.println("produto " + p.toString());
-        System.out.println("produto qtd venda" + qtd);
-        p.setQtdEstoque(p.getQtdEstoque() + qtd);
-
-        try {
-            ProdutoService.editar(p);
-        } catch (NegocioException ex) {
-            Logger.getLogger(CadastrarVenda.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        items.remove(tableItem.getSelectedRow());
-
-        valorVenda();
-        preencheDadosProduto();
-        adicionarTabela();
-
-    }//GEN-LAST:event_btnRemoverActionPerformed
-
-    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        // TODO add your handling code here:
-        if (cbxQuantidade.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog(this,
-                    "Informe a quantidade do produto", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        int result = JOptionPane.showConfirmDialog(this,
-                "Confirma a operação?", "Adicionar produto",
-                JOptionPane.OK_CANCEL_OPTION,
-                JOptionPane.QUESTION_MESSAGE);
-
-        if (result == JOptionPane.OK_OPTION) {
-
-            if (p.getQtdEstoque() - ((Integer) cbxQuantidade.getSelectedItem()) >= p.getEstoqueMin()) {
-                vp.setProduto((Produto) cbxProduto.getSelectedItem());
-                vp.setQtde((Integer) cbxQuantidade.getSelectedItem());
-                vp.setValor(TOP_ALIGNMENT);
-                System.out.println(vp);
-                items.add(vp);
-                Produto p = (Produto) cbxProduto.getSelectedItem();
-                p.setQtdEstoque(p.getQtdEstoque() - ((Integer) cbxQuantidade.getSelectedItem()));
-                try {
-                    ProdutoService.editar(p);
-                } catch (NegocioException ex) {
-                    Logger.getLogger(CadastrarVenda.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else {
-                JOptionPane.showMessageDialog(this,
-                        "Estoque mínimo atingido.", "Erro de estoque", JOptionPane.ERROR_MESSAGE);
-            }
-
-        }
-
-        valorVenda();
-        preencheDadosProduto();
-        adicionarTabela();
-    }//GEN-LAST:event_btnAdicionarActionPerformed
-
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-              if (items.isEmpty()) {
+        if (items.isEmpty()) {
             try {
                 throw new NegocioException("A venda deve conter itens", "Erro Editar Venda");
             } catch (NegocioException ex) {
@@ -612,6 +537,84 @@ public class EditarVenda extends javax.swing.JDialog {
 
     }//GEN-LAST:event_btnSalvarActionPerformed
 
+    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
+        // TODO add your handling code here:
+        if (cbxQuantidade.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this,
+                    "Informe a quantidade do produto", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int result = JOptionPane.showConfirmDialog(this,
+                "Confirma a operação?", "Adicionar produto",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+
+        if (result == JOptionPane.OK_OPTION) {
+
+            if (p.getQtdEstoque() - ((Integer) cbxQuantidade.getSelectedItem()) >= p.getEstoqueMin()) {
+                vp.setProduto((Produto) cbxProduto.getSelectedItem());
+                vp.setQtde((Integer) cbxQuantidade.getSelectedItem());
+                vp.setValor(TOP_ALIGNMENT);
+                System.out.println(vp);
+                items.add(vp);
+                Produto p = (Produto) cbxProduto.getSelectedItem();
+                p.setQtdEstoque(p.getQtdEstoque() - ((Integer) cbxQuantidade.getSelectedItem()));
+                try {
+                    ProdutoService.editar(p);
+                } catch (NegocioException ex) {
+                    Logger.getLogger(CadastrarVenda.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Estoque mínimo atingido.", "Erro de estoque", JOptionPane.ERROR_MESSAGE);
+            }
+
+        }
+
+        valorVenda();
+        preencheDadosProduto();
+        adicionarTabela();
+    }//GEN-LAST:event_btnAdicionarActionPerformed
+
+    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+        // TODO add your handling code here:
+         if (tableItem.getSelectedRow() == -1) {
+            try {
+                throw new NegocioException("Por favor, selecione um registro!", "Excluir produto");
+            } catch (NegocioException ex) {
+                Logger.getLogger(EditarVenda.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return;
+        }
+        int resp = JOptionPane.showConfirmDialog(this,
+                "Confirma a exclusão?", "Excluir Produto",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+
+        if (resp != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        Produto p = (Produto) tableItem.getValueAt(tableItem.getSelectedRow(), 0);
+        Integer qtd = (Integer) tableItem.getValueAt(tableItem.getSelectedRow(), 1);
+        System.out.println("produto " + p.toString());
+        System.out.println("produto qtd venda" + qtd);
+        p.setQtdEstoque(p.getQtdEstoque() + qtd);
+
+        try {
+            ProdutoService.editar(p);
+        } catch (NegocioException ex) {
+            Logger.getLogger(CadastrarVenda.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        items.remove(tableItem.getSelectedRow());
+
+        valorVenda();
+        preencheDadosProduto();
+        adicionarTabela();
+    }//GEN-LAST:event_btnRemoverActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionar;
@@ -650,6 +653,43 @@ public class EditarVenda extends javax.swing.JDialog {
     private javax.swing.JLabel txtValorU;
     // End of variables declaration//GEN-END:variables
 
+      public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Windonws".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(CadastrarVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(CadastrarVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(CadastrarVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(CadastrarVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the dialog */
+        java.awt.EventQueue.invokeLater(() -> {
+            EditarVenda dialog = new EditarVenda(new javax.swing.JDialog(), true, new VendaService(), new Venda());
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    System.exit(0);
+                }
+            });
+            dialog.setVisible(true);
+        });
+    }
     private void preencherDados() {
         valor = venda.getValor();
         valorDesconto = venda.getCliente().getCategoria().getDesconto();
@@ -724,7 +764,7 @@ public class EditarVenda extends javax.swing.JDialog {
             valor += vp.getTotal();
         });
 
-        valorDesconto = valor * valorDesconto;
+        valorDesconto = valor * c.getCategoria().getDesconto();
 
         valorTotal = valor - valorDesconto;
 
