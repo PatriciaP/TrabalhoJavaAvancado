@@ -672,7 +672,7 @@ public class CadastrarVenda extends javax.swing.JDialog {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String dtAtual = simpleDateFormat.format(new Date());
         edtData.setText(dtAtual);
-        edtCodigo.setText(VendaService.retornarCod().replace("[", "").replace("]", ""));
+        //edtCodigo.setText(VendaService.retornarCod().replace("[", "").replace("]", ""));
         carregaCombos();
         preencherDadosCliente();
         preencheDadosProduto();
